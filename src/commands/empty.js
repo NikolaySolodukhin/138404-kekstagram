@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const {author, name} = require(`../../package`);
 const {printCommand, exitSucces} = require(`./utils`);

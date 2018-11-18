@@ -6,7 +6,7 @@ const express = require(`express`);
 
 const postsStoreMock = require(`./mock/posts-store-mock`);
 const imageStoreMock = require(`./mock/image-store-mock`);
-const postsRouter = require(`../src/posts/route`)(
+const postsRouter = require(`../src/posts/router/route`)(
     postsStoreMock,
     imageStoreMock
 );
@@ -39,6 +39,25 @@ describe(`GET`, () => {
     assert.strictEqual(posts.data.length, 52);
   });
 
+
+  it(`send incorrect skip parameter`, async () => {
+    return await supertest(app)
+      .get(`/api/posts?skip=regbbrgbjr&limit=52`)
+      .set(`Accept`, `application/json`)
+      .expect(400)
+      .expect(`Content-Type`, /html/)
+      .expect(`Неверное значение параметра "skip" или "limit"`);
+  });
+
+  it(`send incorrect limit parameter`, async () => {
+    return await supertest(app)
+      .get(`/api/posts?skip=2&limit=8382rewnbjgejgfnjwefnjenwfje83`)
+      .set(`Accept`, `application/json`)
+      .expect(400)
+      .expect(`Content-Type`, /html/)
+      .expect(`Неверное значение параметра "skip" или "limit"`);
+  });
+
   it(`get all posts with / at the end`, async () => {
     const response = await supertest(app)
       .get(`/api/posts/`)
@@ -50,8 +69,21 @@ describe(`GET`, () => {
     assert.strictEqual(posts.data.length, 50);
   });
 
+  // describe(`GET /api/posts/:date/image`, () => {
+  //   it(`get post with date 1 March 2049`, async () => {
+  //     const date = new Date(2029, 0, 1).valueOf();
+  //     const response = await supertest(app)
+  //       .get(`/api/posts/${date}/image`)
+  //       .set(`Accept`, `application/json`)
+  //       .expect(400)
+  //       .expect(`Content-Type`, /json/);
+  //     const post = response.body;
+  //     assert.strictEqual(post.date, date);
+  //   });
+  // });
+
   describe(`GET /api/posts/:date`, () => {
-    it(`get post with date 1 March 2029`, async () => {
+    it(`get post with date 1 March 2049`, async () => {
       const date = new Date(2049, 0, 1).valueOf();
       const response = await supertest(app)
         .get(`/api/posts/${date}`)
@@ -67,9 +99,9 @@ describe(`GET`, () => {
       return await supertest(app)
         .get(`/api/posts/${date}/`)
         .set(`Accept`, `application/json`)
-        .expect(404);
-      // .expect(`Не найден пост с датой`)
-      // .expect(`Content-Type`, /json/);
+        .expect(404)
+        .expect(`Content-Type`, /json/)
+        .expect(JSON.stringify(`Не найден пост с датой`));
     });
   });
 });
