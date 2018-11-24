@@ -1,3 +1,33 @@
+@font-face {
+  font-weight: 700;
+  font-family: "Open Sans Condensed";
+  font-style: normal;
+  src:
+    url("../fonts/opensans-condbold.woff2") format("woff2"),
+    url("../fonts/opensans-condbold.woff") format("woff");
+  font-display: swap;
+}
+
+@font-face {
+  font-weight: 300;
+  font-family: "Open Sans Condensed";
+  font-style: normal;
+  src:
+    url("../fonts/opensans-condlight.woff2") format("woff2"),
+    url("../fonts/opensans-condlight.woff") format("woff");
+  font-display: swap;
+}
+
+@font-face {
+  font-weight: normal;
+  font-family: "Open Sans";
+  font-style: normal;
+  src:
+    url("../fonts/opensans.woff2") format("woff2"),
+    url("../fonts/opensans.woff") format("woff");
+  font-display: swap;
+}
+
 html,
 body {
   margin: 0;
@@ -327,7 +357,8 @@ body {
   display: inline-block;
   margin: 0 5px;
 
-  font: 14px "Open Sans Condensed";
+  font-size: 14px;
+  font-family: "Open Sans Condensed";
   font-weight: 700;
   color: white;
   text-transform: uppercase;
@@ -415,7 +446,8 @@ input[type=radio]:checked + .upload-effect-label .upload-effect-preview {
   margin: 0 auto 30px;
   padding: 8px 10px;
 
-  font: 18px "Open Sans";
+  font-size: 18px;
+  font-family: "Open Sans";
   color: #9a9a9a;
 
   border-radius: 5px;
@@ -433,7 +465,8 @@ input[type=radio]:checked + .upload-effect-label .upload-effect-preview {
   margin: 0 auto 30px;
   padding: 20px 10px;
 
-  font: 14px "Open Sans";
+  font-size: 14px;
+  font-family: "Open Sans";
   color: #9a9a9a;
 
   border-radius: 5px;
@@ -448,7 +481,8 @@ input[type=radio]:checked + .upload-effect-label .upload-effect-preview {
   margin-bottom: 30px;
   padding: 0 20px;
 
-  font: 14px "Open Sans";
+  font-size: 14px;
+  font-family: "Open Sans";
   font-weight: 900;
   line-height: 46px;
   text-align: center;
@@ -784,7 +818,7 @@ input[type=radio]:checked + .upload-effect-label .upload-effect-preview {
   cursor: pointer;
 }
 
-.likes-count:before {
+.likes-count::before {
   content: "";
 
   display: inline-block;
@@ -800,7 +834,7 @@ input[type=radio]:checked + .upload-effect-label .upload-effect-preview {
   cursor: pointer;
 }
 
-.likes-count-liked:before {
+.likes-count-liked::before {
   background-position-x: -18px;
 }
 

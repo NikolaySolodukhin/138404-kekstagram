@@ -5,12 +5,12 @@ const ValidateError = require(`../error/validate`);
 const logger = require(`../logger`);
 const NotFoundError = require(`./not-found-error`);
 
-const NOT_FOUND_HANDLER = (req, res) => {
+const NOT_FOUND_HANDLER = (req, res) =>
   res.status(404).send(`Page was not found`);
-};
 
 const ERROR_HANDLER = (err, req, res, _next) => {
   logger.error(err.message, err);
+
   if (err instanceof ValidateError) {
     res.status(err.code).json(err.errors);
     return;

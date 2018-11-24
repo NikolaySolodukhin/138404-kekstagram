@@ -1,7 +1,11 @@
 'use strict';
 
 const readline = require(`readline`);
-const {red, green, black} = require(`colors/safe`);
+const {
+  red,
+  green,
+  black
+} = require(`colors/safe`);
 
 const {
   generateData
@@ -20,12 +24,11 @@ class Readline {
   constructor(params) {
     this.data = null;
 
-    this.rl = readline.createInterface(
-        Object.assign({
-          input: process.stdin,
-          output: process.stdout
-        }),
-        params
+    this.rl = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout
+    },
+    params
     );
 
     this.rl

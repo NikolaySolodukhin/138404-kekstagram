@@ -1,7 +1,7 @@
 'use strict';
 
 const {author, name} = require(`../../package`);
-const {printCommand, exitSucces} = require(`./utils`);
+const {printCommand} = require(`./utils`);
 
 module.exports = {
   name: `helloUser`,
@@ -10,6 +10,5 @@ module.exports = {
     printCommand(
         `Hello user!\n${`This program will start «${name}» server.\nAuthor: ${author}.`}`
     );
-    exitSucces();
   }
 };

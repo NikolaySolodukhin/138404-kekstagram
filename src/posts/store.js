@@ -39,7 +39,7 @@ class PostsStore {
   async drop() {
     return (await this.collection).drop((err, deleteSuccess) => {
       if (err) {
-        throw err;
+        logger.error(`Unexpected result. Please restart programm. ${err}`);
       }
 
       if (deleteSuccess) {

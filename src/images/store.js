@@ -1,10 +1,11 @@
-'use strict';
+"use strict";
 
 const db = require(`../database/db`);
 const mongodb = require(`mongodb`);
+const NUMBER_OF_BYTES_IN_ONE_KILOBYTE = 1024;
+const NUMBER_KILOBYTE = 512;
 
 class ImageStore {
-
   async _bucket() {
     if (this._bucketStore) {
       return this._bucketStore;
@@ -14,7 +15,7 @@ class ImageStore {
 
     if (!this._bucketStore) {
       this._bucketStore = new mongodb.GridFSBucket(dBase, {
-        chunkSizeBytes: 512 * 1024,
+        chunkSizeBytes: NUMBER_KILOBYTE * NUMBER_OF_BYTES_IN_ONE_KILOBYTE,
         bucketName: `avatars`
       });
     }
@@ -24,9 +25,11 @@ class ImageStore {
 
   async get(filename) {
     const bucket = await this._bucket();
-    const results = await bucket.find({
-      filename
-    }).toArray();
+    const results = await bucket
+      .find({
+        filename
+      })
+      .toArray();
     const entity = results[0];
 
     if (!entity) {
@@ -43,9 +46,9 @@ class ImageStore {
     const bucket = await this._bucket();
     return new Promise((success, fail) =>
       stream
-      .pipe(bucket.openUploadStream(filename))
-      .on(`error`, fail)
-      .on(`finish`, success)
+        .pipe(bucket.openUploadStream(filename))
+        .on(`error`, fail)
+        .on(`finish`, success)
     );
   }
 }
